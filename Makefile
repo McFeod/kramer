@@ -1,5 +1,6 @@
 CC=mpic++
-NP=4
+NP=11
+EQUATIONS=10
 CFLAGS=-c -Wall --std=c++14 -fopenmp
 LFLAGS=-fopenmp
 BIN=bin
@@ -11,6 +12,14 @@ OBJ_FILES=$(OBJECTS:%=${BIN}/%)
 
 
 all: $(SOURCES) $(EXECUTABLE) run
+
+
+test: equations run
+
+
+equations:
+	python3 generate.py $(EQUATIONS)
+
 
 run:
 	mpiexec -np $(NP) $(BIN)/$(EXECUTABLE)
